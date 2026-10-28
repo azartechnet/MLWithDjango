@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>StudentMarks Prediction</title>
+    </head>
+    <body>
+        <div>
+            <h2>StudentMarks Predictions</h2>
+            <p>Enter the number of hours Studied</p>
+            <form method="POST">
+               {% csrf_token %}
+               <input type="number" name="hours" min="0" max="10" step="any" 
+               placeholder="Hours Studied" required>
+               <button type="submit">
+                Predict Marks
+               </button>
+            </form>
+            {% if prediction != None %}
+            <div>
+                <h3>Predicted Marks</h3>
+                <h2>{{prediction}}/100</h2>
+            </div>
+            {% endif %}
+            {% if error %}
+            <p class="error">{{error}}</p>
+            {% endif %}
+        </div>
+    </body>
+</html>

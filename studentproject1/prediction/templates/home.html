@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Result Prediction</title>
+</head>
+<body>
+
+    <h1>Student Result Prediction</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>StudyHours</label>
+        <input type="number"
+               name="study_hours"
+               step="any"
+               required>
+
+        <br><br>
+
+        <label>Attendance</label>
+        <input type="number"
+               name="attendance"
+               step="any"
+               required>
+
+        <br><br>
+
+        <button type="submit">Predict</button>
+
+    </form>
+
+    {% if result %}
+        <h2>Prediction: {{ result }}</h2>
+        <h3>Pass Probability: {{ probability|floatformat:2 }}</h3>
+    {% endif %}
+
+    {% if error %}
+        <h3 style="color:red">Error: {{ error }}</h3>
+    {% endif %}
+
+</body>
+</html>

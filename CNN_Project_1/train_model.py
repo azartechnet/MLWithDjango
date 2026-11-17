@@ -46,6 +46,8 @@ def load_images(urls, label):
 load_images(cat_urls, 0)
 load_images(dog_urls, 1)
 
+#Why ->TensorFlow model works with numerical arrays 
+
 X = np.array(X, dtype="float32")
 y = np.array(y)
 

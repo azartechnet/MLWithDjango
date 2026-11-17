@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Cat Dog Classification</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+        }
+
+        .navbar {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #0001;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1e293b;
+        }
+
+        .upload-box {
+            border: 2px dashed #64748b;
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 12px;
+        }
+
+        input[type="file"] {
+            margin: 15px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 13px 35px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #preview {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            margin-top: 20px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #dcfce7;
+            border-radius: 10px;
+            color: #166534;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #64748b;
+            margin-top: 40px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h1>Cat & Dog Classification</h1>
+        <p>Deep Learning using CNN and Django</p>
+    </div>
+
+    <div class="container">
+
+        <h2>Upload Your Image</h2>
+
+        <p>Select a Cat or Dog image to predict.</p>
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="upload-box">
+
+                <input type="file"
+                       name="image"
+                       id="imageInput"
+                       accept="image/*"
+                       required>
+
+                <br>
+
+                <img id="preview">
+
+            </div>
+
+            <button type="submit">
+                Predict Image
+            </button>
+
+        </form>
+
+        {% if result %}
+
+        <div class="result">
+
+            <h2>Prediction Result</h2>
+
+            <h1>{{ result }}</h1>
+
+            <h3>
+                Confidence: {{ confidence }}%
+            </h3>
+
+        </div>
+
+        {% endif %}
+
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="footer">
+        <p>Powered by TensorFlow CNN & Django</p>
+    </div>
+
+    <script>
+
+        const imageInput =
+            document.getElementById("imageInput");
+
+        const preview =
+            document.getElementById("preview");
+
+        imageInput.addEventListener("change", function() {
+
+            const file = this.files[0];
+
+            if (file) {
+
+                preview.src = URL.createObjectURL(file);
+
+                preview.style.display = "inline-block";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
